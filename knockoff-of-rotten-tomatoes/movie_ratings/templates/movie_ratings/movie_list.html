@@ -1,0 +1,59 @@
+{% extends 'movie_ratings/base.html' %} 
+{% block content %}
+
+<style>
+  .movie-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    text-align: center; /* Dodajte ovu liniju kako biste centrirali tekst s slikom */
+  }
+
+  .movie-item {
+    width: 18%;
+    margin-bottom: 20px;
+  }
+
+  .movie-item a {
+    text-decoration: none;
+    color: black;
+  }
+
+  .movie-item img {
+    display: block;
+    margin: 0 auto; /* Ovo će centrirati sliku unutar roditeljskog elementa */
+    max-width: 100px;
+    max-height: 150px;
+  }
+
+  h1 {
+    text-align: center; /* Dodajte ovu liniju kako biste centrirali naslov "Movie List" */
+  }
+
+</style>
+
+<h1>Movie List</h1>
+
+<form method="GET" action="{% url 'app:movie_list' %}">
+  <input type="text" name="search" placeholder="Search movies by name">
+  <button type="submit">Search</button>
+</form>
+
+{% if no_movies %}
+  <p>No movies found. <a href="{% url 'app:movie_list' %}">Show all movies</a></p>
+{% else %}
+  <div class="movie-container">
+    {% for movie in movies %}
+    <div class="movie-item">
+      <a href="{% url 'app:movie_detail' pk=movie.pk %}">
+        <img src="{{ movie.image.url }}" alt="{{ movie.title }}">
+        <br>
+        {{ movie.title }}
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+  <p><a href="{% url 'app:movie_list' %}">Show all movies</a></p>
+{% endif %}
+
+{% endblock %}

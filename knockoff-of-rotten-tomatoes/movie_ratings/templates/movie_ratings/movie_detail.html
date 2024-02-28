@@ -1,0 +1,60 @@
+{% extends 'movie_ratings/base.html' %} 
+{% block content %}
+
+<div style="text-align: center;">
+  <img src="{{ movie.image.url }}" alt="{{ movie.title }}" style="max-width: 600px; max-height: 900px; width: 35%; height: 50%;">
+  <h1>{{ movie.title }}</h1>
+  <p><strong>Genre:</strong> {{ movie.genre }}</p>
+  <p><strong>Director:</strong> {{ movie.director }}</p>
+  <p><strong>Release Year:</strong> {{ movie.release_year }}</p>
+  <p><strong>Duration:</strong> {{ movie.duration }} minutes</p>
+  <p><strong>Language:</strong> {{ movie.language }}</p>
+  <p><strong>Cast:</strong> {{ movie.cast }}</p>
+  <p><strong>Description:</strong> {{ movie.description }}</p>
+
+  {% if average_rating %}
+    <p><strong>Average Rating:</strong> {{ average_rating }}</p>
+  {% endif %}
+
+  <div class="col-md-6">
+    <h1>Reviews</h1> 
+    {% for review in reviews %}
+      <p class="review">
+        {{ review.user }} - Rating: {{ review.rating }} - {{ review.comment }}
+        {% if user.is_authenticated and user == review.user %}
+          <a href="{% url 'app:review_detail' pk=review.pk %}">Edit Review</a>
+        {% endif %}
+      </p>
+    {% endfor %}
+    
+    {% if user.is_authenticated %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-danger" role="alert">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+      
+      <form action="{% url 'app:post_review' movie.id %}" method="post">
+        {% csrf_token %}
+        <p>
+          <label for="review_text">Text</label>
+          <input id="review_text" name="text" type="text">
+        </p>
+        <p>
+          <label for="rating">Rating</label>
+          <input id="rating" name="rating" type="number" min="1" max="5">
+        </p>
+
+        <input type="submit">
+      </form>
+    {% else %}
+      <p>You have to be logged in to post a review.
+        <a href="{% url 'login' %}">Prijavi se</a>
+      </p>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

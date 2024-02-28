@@ -1,0 +1,11 @@
+{% extends 'movie_ratings/base.html' %}
+{% block content %}
+<h1>Knockoff of Rotten Tomatoes</h1>
+<p>Dobrodošli na domaći "Rotten Tomatoes"</p>
+
+<p>
+    <a href="{% url 'app:movie_list' %}">Pregledaj filmove</a>
+    {% if not request.user.is_authenticated %}
+    {% endif %}
+</p>
+{% endblock content %}

@@ -1,0 +1,42 @@
+
+.content p.red {
+    color: red;
+  }
+  
+  .app-fit {
+    height: auto;
+    width: 100%;
+    border: 1px solid black;
+  }
+  
+  .comment {
+    padding: 5px;
+  }
+  
+  .jumbotron {
+    color: white;
+    background-image: url("https://static-prod.adweek.com/wp-content/uploads/2018/03/rotten-tomatoes-blackred-CONTENT-2018.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* Uklonite visinu kako biste omogućili da se jumbotron proširi na cijeli zaslon */
+    /* height: 20vh; */
+  }
+  
+  
+  .content h1{
+    color: red; 
+  
+  }
+  
+  .full-width{
+    width: 100%;
+    height: auto;
+  }
+  
+  .comment {
+    padding: 5px;
+    border: 1px solid black;
+  }
+
+  
